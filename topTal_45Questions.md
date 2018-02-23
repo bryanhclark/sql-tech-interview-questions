@@ -56,7 +56,39 @@ select case when null = null then 'Yup' else 'Nope' end as Result;
 ```sql
 select case when null is null then 'Yup' else 'Nope' end as Result;
 ```
+* Given the following Tables:
+```sql
+sql> SELECT * FROM runners;
++----+--------------+
+| id | name         |
++----+--------------+
+|  1 | John Doe     |
+|  2 | Jane Doe     |
+|  3 | Alice Jones  |
+|  4 | Bobby Louis  |
+|  5 | Lisa Romero  |
++----+--------------+
 
+sql> SELECT * FROM races;
++----+----------------+-----------+
+| id | event          | winner_id |
++----+----------------+-----------+
+|  1 | 100 meter dash |  2        |
+|  2 | 500 meter dash |  3        |
+|  3 | cross-country  |  2        |
+|  4 | triathalon     |  NULL     |
++----+----------------+-----------+
+```
+What will the result of the following query be:
+```sql
+SELECT * FROM runners WHERE id NOT IN (SELECT winner_id FROM races)
+```
+  - The answer will be **FALSE**
+    - If the condition being evaluated by SQL **NOT IN** contains any **null** values, then the outer query will always return an empty set
+Fixed Query:
+```sql
+SELECT * FROM runners WHERE id NOT IN (SELECT winner_id from races WHERE winner_id IS NOT null)
+```
 
 
 
