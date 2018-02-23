@@ -1,13 +1,13 @@
 # 45 Essential SQL Interview Questions *
 
-* What does **UNION** do? What is the difference between **UNION** and **UNION ALL**?
+### 1) What does **UNION** do? What is the difference between **UNION** and **UNION ALL**?
 
   - **UNION** merges the contents of two compatible tables into a single table, but omits duplicate entries.
   - **UNION ALL** merges the contents of two compatible tables, but will allow duplicate entries.
   - **UNION ALL** is slightly more performant as **UNION** requires the server to delete duplicate entries.
   - In situations where there are no risk of duplicate entries, use **UNION ALL**.
 
-* List and explain the different types of **JOIN** clauses as supported by the ANSI-standard SQL?
+### 2) List and explain the different types of **JOIN** clauses as supported by the ANSI-standard SQL?
   - **ANSI-standard** is the American National Standards Institution
 
   - **INNER JOIN** (or **SIMPLE JOIN**): Returns all the rows where there is at least one match in **BOTH** tables.
@@ -19,7 +19,7 @@
   - **CROSS JOIN**: Produces a result set of the rows in the first table are multiplied by the number of rows in the second table
     - This result is commonly referred to as the **Cartesian Product**
 
-* For a table **orders** having a column defined simply as **customer_id VARCHAR(100)**, consider the following two query results:
+### 3) For a table **orders** having a column defined simply as **customer_id VARCHAR(100)**, consider the following two query results:
 ```sql
 SELECT count(*) AS total FROM orders;
 
@@ -56,7 +56,7 @@ select case when null = null then 'Yup' else 'Nope' end as Result;
 ```sql
 select case when null is null then 'Yup' else 'Nope' end as Result;
 ```
-* Given the following Tables:
+### 4) Given the following Tables:
 ```sql
 sql> SELECT * FROM runners;
 +----+--------------+
