@@ -90,5 +90,43 @@ Fixed Query:
 SELECT * FROM runners WHERE id NOT IN (SELECT winner_id from races WHERE winner_id IS NOT null)
 ```
 
+### 5) Given two tables created and populated as follows:
+
+```sql
+CREATE TABLE dbo.envelope(id int, user_id int);
+CREATE TABLE dbo.docs(idnum int, pageseq int, doctext varchar(100));
+
+INSERT INTO dbo.envelope VALUES
+  (1,1),
+  (2,2),
+  (3,3);
+
+INSERT INTO dbo.docs(idnum,pageseq) VALUES
+  (1,5),
+  (2,6),
+  (null,0);
+```
+
+What will the result of the following query?
+
+```sql
+UPDATE docs SET doctext=pageseq FROM docs INNER JOIN envelope ON envelope.id=docs.idnum
+WHERE EXISTS (
+  SELECT 1 FROM dbo.docs
+  WHERE id=envelope.id
+);
+```
+The result of the query would be:
+```sql
+idnum  pageseq  doctext
+1      5        5
+2      6        6
+NULL   0        NULL
+```
+
+The **EXIST** clause in the query is the red flag:
+  - It will always return true since **ID** is not a member of db.docs
+  - It will refer to the envelope table, comparing itself to itself
+  - The **idnum** of **null** will not be set since the join of **null** will not return a result when attempting to match with any value from envelope
 
 
