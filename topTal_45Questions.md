@@ -41,6 +41,22 @@ SELECT count(*) AS cust_123_total FROM orders WHERE customer_id = '123';
 ```sql
 SELECT count(*) AS cust_not_123_total FROM orders WHERE customer_id <> '123';
 ```
+  - Obvious answer is 85, but not necessarily correct
+    - If there are any null values for **customer ID**, they would not be return in the query
+    - So answer is **<=85**
+
+* What will be the result of the query below? Explain your answer and provide a version that behaves correctly.
+
+```sql
+select case when null = null then 'Yup' else 'Nope' end as Result;
+```
+  - In this query, the result will always be 'Nope' as the **null** cannot **= null**
+    - This is because **null** is essentially **UNKNOWN** and it cannot **=** itself
+  - The proper way to evaluate this query to 'Yup' is to use the **is** operator
+```sql
+select case when null is null then 'Yup' else 'Nope' end as Result;
+```
+
 
 
 
