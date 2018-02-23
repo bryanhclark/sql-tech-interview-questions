@@ -129,4 +129,49 @@ The **EXIST** clause in the query is the red flag:
   - It will refer to the envelope table, comparing itself to itself
   - The **idnum** of **null** will not be set since the join of **null** will not return a result when attempting to match with any value from envelope
 
+### 6) What is Wrong with this SQL Query, correct it so it executes correctly?
+
+```sql
+SELECT Id, YEAR(BillingDate) AS BillingYear 
+FROM Invoices
+WHERE BillingYear >= 2010;
+```
+The Expression BillingYear in the WHERE clause is incorrect.
+  - Even though it was defined as an alias in the **SELECT**, SQL executes **WHERE** clauses before assigning alias'
+
+Correct Query:
+```sql
+SELECT Id, YEAR(BillingDate) AS BillingYear
+FROM Invoices
+WHERE YEAR(BillingDate) >= 2010;
+```
+
+### 7) Given these contents of the Customers table:
+
+```sql
+Id	Name			ReferredBy
+1	John Doe		NULL
+2	Jane Smith		NULL
+3	Anne Jenkins		2
+4	Eric Branford		NULL
+5	Pat Richards		1
+6	Alice Barnes		2
+```
+Here is a query written to return the list of customers not referred by Jane Smith:
+```sql
+SELECT Name FROM Customers WHERE ReferredBy <> 2;
+```
+What will be the result of the query? Why? What would be a better way to write it?
+ - The Result would just be **Pat Richards** as the **WHERE** clause will not return **null** values
+ - Anything compared to **NULL** evaluates to **UNKNOWN**
+  - There are 3 logic values:
+    - True
+    - False
+    - UNKNOWN
+A correct query would be:
+```sql
+SELECT Name FROM Customers WHERE ReferredBy IS NULL OR ReferredBy <> 2;
+```
+
+
 
