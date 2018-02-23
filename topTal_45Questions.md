@@ -19,5 +19,28 @@
   - **CROSS JOIN**: Produces a result set of the rows in the first table are multiplied by the number of rows in the second table
     - This result is commonly referred to as the **Cartesian Product**
 
+* For a table **orders** having a column defined simply as **customer_id VARCHAR(100)**, consider the following two query results:
+```sql
+SELECT count(*) AS total FROM orders;
+
++-------+
+| total |
++-------+
+|  100  |
++-------+
+
+SELECT count(*) AS cust_123_total FROM orders WHERE customer_id = '123';
+
++----------------+
+| cust_123_total |
++----------------+
+|       15       |
++----------------+
+```
+  - Given the above query results, what would the result of the following query be?
+```sql
+SELECT count(*) AS cust_not_123_total FROM orders WHERE customer_id <> '123';
+```
+
 
 
